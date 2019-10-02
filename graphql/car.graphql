@@ -1,0 +1,25 @@
+type Query
+type Mutation
+
+extend type Query {
+    cars (filter: String, orderBy: [OrderByClause!] @orderBy): [Car!]! @paginate(scopes: ["filter"])
+    car (id: Int! @eq): Car @find
+}
+
+type Car {
+    id: ID!
+    brand: Brand @belongsTo
+    model: Model @belongsTo
+    fuel: Fuel @belongsTo
+    equipment: [Equipment!]! @belongsToMany
+    year_of_production: Int!
+}
+
+extend type Mutation {
+    createCar(
+        brand_id: ID! @rules(apply: ["required", "numeric", "exists:brands,id"])
+        model_id: ID! @rules(apply: ["required", "numeric", "exists:models,id"])
+        fuel_id: ID! @rules(apply: ["required", "numeric", "exists:fuel_types,id"])
+        year_of_production: String! @rules(apply: ["required", "numeric"])
+    ): Car! @create
+}

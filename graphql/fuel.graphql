@@ -1,0 +1,12 @@
+type Query
+
+type Fuel {
+    id: ID!
+    name: String!
+    cars: [Car!]! @hasMany
+}
+
+extend type Query {
+    fuel_types: [Fuel!]! @paginate
+    fuel_type (id: Int! @eq): Fuel @find
+}

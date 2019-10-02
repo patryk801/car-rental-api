@@ -1,0 +1,21 @@
+type Query
+type Mutation
+
+extend type Query {
+    models (filter: String, orderBy: [OrderByClause!] @orderBy): [Model!]! @paginate(scopes: ["filter"])
+    model (id: Int! @eq): Model @find
+}
+
+type Model {
+    id: ID!
+    name: String!
+    brand: Brand @belongsTo
+    cars: [Car!]! @hasMany
+}
+
+extend type Mutation {
+    createModel(
+        name: String! @rules(apply: ["required", "max:255"])
+        brand_id: ID! @rules(apply: ["required", "numeric", "exists:brands,id"])
+    ): Model! @create
+}

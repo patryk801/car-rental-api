@@ -1,0 +1,18 @@
+type Query
+type Mutation
+
+type Equipment {
+    id: ID!
+    name: String!
+}
+
+extend type Query {
+    equipment: [Equipment!]! @paginate
+    equipment_element (id: Int! @eq): Equipment @find
+}
+
+extend type Mutation {
+    createEquipmentElement(
+        name: String!
+    ): Equipment! @create
+}
