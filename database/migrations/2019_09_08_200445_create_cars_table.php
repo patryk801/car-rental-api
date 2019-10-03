@@ -19,6 +19,7 @@ class CreateCarsTable extends Migration
             $table->unsignedBigInteger('model_id');
             $table->unsignedBigInteger('fuel_id');
             $table->unsignedSmallInteger('year_of_production');
+            $table->decimal('price', 10, 2);    
 
             $table->foreign('brand_id')->references('id')->on('brands');
             $table->foreign('model_id')->references('id')->on('models');

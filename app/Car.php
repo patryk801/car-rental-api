@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Car extends Model
 {
-    protected $fillable = ['brand_id', 'model_id', 'fuel_id', 'year_of_production'];
+    protected $fillable = ['brand_id', 'model_id', 'fuel_id', 'year_of_production', 'price'];
 
     public $timestamps = false;
 

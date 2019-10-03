@@ -24,7 +24,8 @@ class CarsTableSeeder extends Seeder
                 'brand_id' => $model->brand->id,
                 'model_id' => $model->id,
                 'fuel_id' => $fuelType->id,
-                'year_of_production' => 2019
+                'year_of_production' => 2019,
+                'price' => 100
             ]);
         }
     }

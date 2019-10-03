@@ -13,6 +13,7 @@ type Car {
     fuel: Fuel @belongsTo
     equipment: [Equipment!]! @belongsToMany
     year_of_production: Int!
+    price: Float!
 }
 
 extend type Mutation {
@@ -20,6 +21,7 @@ extend type Mutation {
         brand_id: ID! @rules(apply: ["required", "numeric", "exists:brands,id"])
         model_id: ID! @rules(apply: ["required", "numeric", "exists:models,id"])
         fuel_id: ID! @rules(apply: ["required", "numeric", "exists:fuel_types,id"])
-        year_of_production: String! @rules(apply: ["required", "numeric"])
+        year_of_production: String! @rules(apply: ["required", "numeric",])
+        price: Float! @rules(apply: ["required", "numeric", "gt:0"])
     ): Car! @create
 }
