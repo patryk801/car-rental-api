@@ -1,0 +1,16 @@
+type Query
+
+type User {
+    id: ID!
+    name: String!
+    surname: String!
+    email: String!
+    phone_number: String!
+    created_at: DateTime
+    updated_at: DateTime
+}
+
+extend type Query {
+    users: [User!]! @paginate
+    user (id: Int! @eq): User @find
+}
