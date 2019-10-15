@@ -13,6 +13,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    environment:
+        XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9000 remote_enable=1 idekey=VSCODE
     ports:
       - "8000:8000"
     links:
