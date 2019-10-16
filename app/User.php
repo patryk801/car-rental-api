@@ -32,6 +32,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @property-read int|null $notifications_count
+ * @property string $surname
+ * @property string $phone_number
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservation[] $reservations
+ * @property-read int|null $reservations_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePhoneNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSurname($value)
  */
 class User extends Authenticatable
 {

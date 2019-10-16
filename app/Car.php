@@ -31,6 +31,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \App\Fuel $fuel
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Car filter($args)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Car whereFuelId($value)
+ * @property float $price
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservation[] $reservations
+ * @property-read int|null $reservations_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Car wherePrice($value)
  */
 class Car extends Model
 {
