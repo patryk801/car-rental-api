@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             FuelTypesTableSeeder::class,
             EquipmentsTableSeeder::class,
             CarsTableSeeder::class,
-            CarEquipmentTableSeeder::class
+            CarEquipmentTableSeeder::class,
+            ReservationsTableSeeder::class
         ]);
     }
 }

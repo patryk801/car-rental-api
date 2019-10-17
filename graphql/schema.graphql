@@ -9,4 +9,5 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 #import car.graphql
 #import equipment.graphql
 #import fuel.graphql
-#import users.graphql
+#import user.graphql
+#import reservation.graphql

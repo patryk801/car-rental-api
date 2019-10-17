@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Car
@@ -30,6 +31,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read \App\Fuel $fuel
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Car filter($args)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Car whereFuelId($value)
+ * @property float $price
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reservation[] $reservations
+ * @property-read int|null $reservations_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Car wherePrice($value)
  */
 class Car extends Model
 {
@@ -55,6 +60,11 @@ class Car extends Model
     public function equipment(): BelongsToMany
     {
         return $this->belongsToMany(Equipment::class);
+    }
+
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
     }
 
     public function scopeFilter(Builder $query, array $args): void
