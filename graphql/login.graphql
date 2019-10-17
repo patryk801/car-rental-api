@@ -1,0 +1,15 @@
+type Query
+type Mutation
+
+
+type LoginPayload {
+    token: String!
+    expires_in: Int!
+}
+
+extend type Mutation {
+    login(
+        email: String! @rules(apply: ["required", "string", "email", "max:191"])
+        password: String! @rules(apply: ["required", "string", "max:191"])
+    ): LoginPayload @field(resolver: "App\\GraphQL\\Mutations\\LoginMutator@login")
+}
