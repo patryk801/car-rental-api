@@ -16,7 +16,7 @@ type Car {
     price: Float!
 }
 
-extend type Mutation {
+extend type Mutation @middleware(checks: ["auth:api"]) {
     createCar(
         brand_id: ID! @rules(apply: ["required", "numeric", "exists:brands,id"])
         model_id: ID! @rules(apply: ["required", "numeric", "exists:models,id"])

@@ -13,7 +13,7 @@ type Model {
     cars: [Car!]! @hasMany
 }
 
-extend type Mutation {
+extend type Mutation @middleware(checks: ["auth:api"]) {
     createModel(
         name: String! @rules(apply: ["required", "max:255"])
         brand_id: ID! @rules(apply: ["required", "numeric", "exists:brands,id"])

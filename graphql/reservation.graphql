@@ -1,7 +1,7 @@
 type Query
 type Mutation
 
-extend type Query {
+extend type Query @middleware(checks: ["auth:api"]) {
     reservations (orderBy: [OrderByClause!] @orderBy): [Reservation!]! @paginate
     reservation (id: Int! @eq): Reservation @find
 }
@@ -17,7 +17,7 @@ type Reservation {
     updated_at: DateTime
 }
 
-extend type Mutation {
+extend type Mutation @middleware(checks: ["auth:api"]) {
     createReservation(
         user_id: ID! @rules(apply: ["required", "numeric", "exists:users,id"])
         car_id: ID! @rules(apply: ["required", "numeric", "exists:cars,id"])
