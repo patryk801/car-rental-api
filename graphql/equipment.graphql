@@ -11,7 +11,7 @@ extend type Query {
     equipment_element (id: Int! @eq): Equipment @find
 }
 
-extend type Mutation {
+extend type Mutation @middleware(checks: ["auth:api"]) {
     createEquipmentElement(
         name: String!
     ): Equipment! @create
