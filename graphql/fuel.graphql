@@ -7,6 +7,6 @@ type Fuel {
 }
 
 extend type Query {
-    fuel_types: [Fuel!]! @paginate
-    fuel_type (id: Int! @eq): Fuel @find
+    fuel_types: [Fuel!]! @paginate @can(ability: "read" model: "App\\Fuel")
+    fuel_type (id: Int! @eq): Fuel @find @can(ability: "read" model: "App\\Fuel")
 }

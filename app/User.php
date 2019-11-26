@@ -2,11 +2,13 @@
 
 namespace App;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use JWTAuth;
 
 /**
  * App\User
@@ -76,6 +78,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Reservation::class);
     }
 
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class, 'user_permission');
+    }
+
+    public function hasPermission(string $permission): bool
+    {
+        $token = JWTAuth::parseToken();
+        $permissions = $token->getPayload()->get('permissions');
+
+        return in_array($permission, $permissions);
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -83,6 +98,8 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'permissions' => $this->permissions()->pluck('name')->toArray()
+        ];
     }
 }

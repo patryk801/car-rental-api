@@ -2,8 +2,8 @@ type Query
 type Mutation
 
 extend type Query @middleware(checks: ["auth:api"]) {
-    reservations (orderBy: [OrderByClause!] @orderBy): [Reservation!]! @paginate
-    reservation (id: Int! @eq): Reservation @find
+    reservations (orderBy: [OrderByClause!] @orderBy): [Reservation!]! @paginate @can(ability: "read" model: "App\\Reservation")
+    reservation (id: Int! @eq): Reservation @find @can(ability: "read" model: "App\\Reservation")
 }
 
 type Reservation {
@@ -23,5 +23,5 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
         car_id: ID! @rules(apply: ["required", "numeric", "exists:cars,id"])
         date_from: DateTime! @rules(apply: ["required", "date"])
         date_to: DateTime! @rules(apply: ["required", "date", "after:date_from"])
-    ): Reservation! @create
+    ): Reservation! @create @can(ability: "create" model: "App\\Reservation")
 }

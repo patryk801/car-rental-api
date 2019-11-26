@@ -2,8 +2,8 @@ type Query
 type Mutation
 
 extend type Query {
-    brands (filter: String, orderBy: [OrderByClause!] @orderBy): [Brand!]! @paginate(scopes: ["filter"])
-    brand (id: Int! @eq): Brand @find
+    brands (filter: String, orderBy: [OrderByClause!] @orderBy): [Brand!]! @paginate(scopes: ["filter"]) @can(ability: "read" model: "App\\Brand")
+    brand (id: Int! @eq): Brand @find @can(ability: "read" model: "App\\Brand")
 }
 
 type Brand {
@@ -14,5 +14,5 @@ type Brand {
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
-    createBrand(name: String! @rules(apply: ["required", "max:255"])): Brand! @create
+    createBrand(name: String! @rules(apply: ["required", "max:255"])): Brand! @create @can(ability: "create" model: "App\\Brand")
 }
