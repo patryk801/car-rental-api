@@ -2,8 +2,8 @@ type Query
 type Mutation
 
 extend type Query {
-    cars (filter: String, orderBy: [OrderByClause!] @orderBy): [Car!]! @paginate(scopes: ["filter"])
-    car (id: Int! @eq): Car @find
+    cars (filter: String, orderBy: [OrderByClause!] @orderBy): [Car!]! @paginate(scopes: ["filter"]) @can(ability: "read" model: "App\\Car")
+    car (id: Int! @eq): Car @find @can(ability: "read" model: "App\\Car")
 }
 
 type Car {
@@ -23,5 +23,5 @@ extend type Mutation @middleware(checks: ["auth:api"]) {
         fuel_id: ID! @rules(apply: ["required", "numeric", "exists:fuel_types,id"])
         year_of_production: String! @rules(apply: ["required", "numeric",])
         price: Float! @rules(apply: ["required", "numeric", "gt:0"])
-    ): Car! @create
+    ): Car! @create @can(ability: "create" model: "App\\Car")
 }

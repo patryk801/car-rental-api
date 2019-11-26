@@ -7,12 +7,12 @@ type Equipment {
 }
 
 extend type Query {
-    equipment: [Equipment!]! @paginate
-    equipment_element (id: Int! @eq): Equipment @find
+    equipment: [Equipment!]! @paginate @can(ability: "read" model: "App\\Equipment")
+    equipment_element (id: Int! @eq): Equipment @find @can(ability: "read" model: "App\\Equipment")
 }
 
 extend type Mutation @middleware(checks: ["auth:api"]) {
     createEquipmentElement(
         name: String!
-    ): Equipment! @create
+    ): Equipment! @create @can(ability: "create" model: "App\\Equipment")
 }
